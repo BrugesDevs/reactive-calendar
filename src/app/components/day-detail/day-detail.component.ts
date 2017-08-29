@@ -4,33 +4,35 @@ import * as moment from 'moment';
 @Component({
     selector: 'day-detail',
     template: `
-        <md-card *ngIf="date">
-            {{date | date: "dd/MM/yyyy"}}&nbsp;
-            <md-card-content>
-                <table>
-                    <tr *ngFor="let appointment of appointments;" [mdTooltipPosition]="'before'"
-                        mdTooltip="{{appointment.description}}">
-                        <td (click)="editMode = true">
-                            <md-input-container class="example-full-width">
-                                <input mdInput [(ngModel)]="appointment.description"
-                                       (change)="update(appointment, appointment.$key)">
-                            </md-input-container>
-                            {{appointment.date | date: "hh:mm"}}
-                        </td>
-                        <td>
-                            <button md-mini-fab color="warn" (click)="removeAppointment.emit(appointment.$key)">
-                                <md-icon>delete</md-icon>
-                            </button>
-                        </td>
-                    </tr>
-                </table>
-            </md-card-content>
-            <md-card-actions>
-                <button md-button color="primary" class="button-block" (click)="add()">
-                    <md-icon>add</md-icon>
+      <md-card *ngIf="date">
+        {{date | date: "dd/MM/yyyy"}}&nbsp;
+        <md-card-content>
+          <table>
+            <tr *ngFor="let appointment of appointments;" [mdTooltipPosition]="'before'"
+                mdTooltip="{{appointment.description}}">
+              <td (click)="editMode = true">
+                <md-select placeholder="Afspraak type" class="example-full-width">
+                  <md-option *ngFor="let appointmentType of appointmentTypes"
+                             [value]="appointmentType.value"
+                             (change)="update(appointment, appointment.$key)">
+                    {{ appointmentType.viewValue }}
+                  </md-option>
+                </md-select>
+              </td>
+              <td>
+                <button md-mini-fab color="warn" (click)="removeAppointment.emit(appointment.$key)">
+                  <md-icon>delete</md-icon>
                 </button>
-            </md-card-actions>
-        </md-card>
+              </td>
+            </tr>
+          </table>
+        </md-card-content>
+        <md-card-actions>
+          <button md-button color="primary" class="button-block" (click)="add()">
+            <md-icon>add</md-icon>
+          </button>
+        </md-card-actions>
+      </md-card>
     `
 })
 export class DayDetailComponent {
@@ -40,6 +42,12 @@ export class DayDetailComponent {
     @Output() public addAppointment = new EventEmitter<Date>();
     @Output() public updateAppointment = new EventEmitter<Appointment>();
     @Output() public removeAppointment = new EventEmitter<Appointment>();
+
+    appointmentTypes = [
+      {value: 'consultatie-0', viewValue: 'Consultatie'},
+      {value: 'onderzoek-1', viewValue: 'Onderzoek'},
+      {value: 'gesprek-2', viewValue: 'Gesprek'}
+    ];
 
     editMode = false;
 

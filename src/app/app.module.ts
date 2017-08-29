@@ -4,12 +4,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {
-    MdButtonModule,
-    MdCardModule,
-    MdIconModule,
-    MdInputModule,
-    MdToolbarModule,
-    MdTooltipModule
+  MdButtonModule,
+  MdCardModule,
+  MdIconModule,
+  MdInputModule, MdRadioModule, MdSelectModule,
+  MdToolbarModule,
+  MdTooltipModule
 } from '@angular/material';
 import { AppComponent } from './containers/app/app.component';
 import { DayViewComponent } from './components/day-view/day-view.component';
@@ -52,6 +52,8 @@ export const firebaseConfig = {
         MdTooltipModule,
         MdToolbarModule,
         MdIconModule,
+        MdSelectModule,
+        MdRadioModule,
         AngularFireModule.initializeApp(firebaseConfig, 'reactive-calendar'),
         AngularFireAuthModule,
         AngularFireDatabaseModule
