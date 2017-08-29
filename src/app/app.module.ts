@@ -24,12 +24,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // replace this config here with the one from firebase
 export const firebaseConfig = {
-    apiKey: '',
-    authDomain: '',
-    databaseURL: '',
-    projectId: '',
-    storageBucket: '',
-    messagingSenderId: ''
+  apiKey: "AIzaSyBGX7tkIPvSGy_nXcbzOSj2WU2dB0M2TzU",
+  authDomain: "reactive-calendar-a4e2d.firebaseapp.com",
+  databaseURL: "https://reactive-calendar-a4e2d.firebaseio.com",
+  projectId: "reactive-calendar-a4e2d",
+  storageBucket: "reactive-calendar-a4e2d.appspot.com",
+  messagingSenderId: "147713892275"
 };
 
 @NgModule({
