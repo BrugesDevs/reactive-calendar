@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
-import { Appointment } from '../../types/appointment.type';
+import { Appointment } from '../../types/appointment.model';
 import * as moment from 'moment';
-import { DayWithAppointments } from '../../types/day-with-appointments.type';
+import { DayWithAppointments } from '../../types/day-with-appointments.model';
+import {AppointmentType} from "../../types/appointmentType.model";
 @Component({
     selector: 'week-view',
     template: `
@@ -26,6 +27,7 @@ export class WeekViewComponent implements OnChanges {
     @Input() week: number;
     @Input() year: number;
     @Input() appointments: Array<Appointment>;
+    @Input() appointmentTypes: Array<AppointmentType>;
 
     @Output() public addAppointment = new EventEmitter<Appointment>();
     @Output() public updateAppointment = new EventEmitter<Appointment>();

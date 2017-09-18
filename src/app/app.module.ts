@@ -11,6 +11,7 @@ import {
   MdToolbarModule,
   MdTooltipModule
 } from '@angular/material';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './containers/app/app.component';
 import { DayViewComponent } from './components/day-view/day-view.component';
 import { WeekViewComponent } from './components/week-view/week-view.component';
@@ -54,6 +55,7 @@ export const firebaseConfig = {
         MdIconModule,
         MdSelectModule,
         MdRadioModule,
+        NgbModule.forRoot(),
         AngularFireModule.initializeApp(firebaseConfig, 'reactive-calendar'),
         AngularFireAuthModule,
         AngularFireDatabaseModule

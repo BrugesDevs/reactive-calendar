@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import * as moment from 'moment';
 import * as _ from 'lodash';
-import { Appointment } from '../../types/appointment.type';
-import { DayWithAppointments } from '../../types/day-with-appointments.type';
+import { Appointment } from '../../types/appointment.model';
+import { DayWithAppointments } from '../../types/day-with-appointments.model';
 
 @Component({
     selector: 'month-view',

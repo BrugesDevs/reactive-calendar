@@ -1,0 +1,41 @@
+<md-card *ngIf="date">
+  {{date | date: "dd/MM/yyyy"}}&nbsp;
+  <md-card-content>
+    <table>
+      <tr *ngFor="let appointment of appointments;"
+          [mdTooltipPosition]="'before'"
+          mdTooltip="{{appointment.description}}">
+        <td (click)="editMode = true"
+            [ngStyle]="{'border-spacing': '10px'}">
+          <md-select placeholder="Afspraak type" class="example-full-width">
+            <md-option *ngFor="let appointmentType of appointmentTypes"
+                       [value]="appointmentType.value"
+                       (onSelectionChange)="update(appointment, appointment.$key)">
+              {{ appointmentType.viewValue }}
+            </md-option>
+          </md-select>
+          <ngb-timepicker [(ngModel)]="appointment.time"
+                          [hourStep]="hourStep"
+                          [minuteStep]="minuteStep"
+                          (ngModelChange)="timeChanged(appointment)"
+          ></ngb-timepicker>
+
+          <!--
+           <hr>
+           <pre>Selected time: {{time | json}}</pre>
+           -->
+        </td>
+        <td>
+          <button md-mini-fab color="warn" (click)="removeAppointment.emit(appointment.$key)">
+            <md-icon>delete</md-icon>
+          </button>
+        </td>
+      </tr>
+    </table>
+  </md-card-content>
+  <md-card-actions>
+    <button md-button color="primary" class="button-block" (click)="add()">
+      <md-icon>add</md-icon>
+    </button>
+  </md-card-actions>
+</md-card>
