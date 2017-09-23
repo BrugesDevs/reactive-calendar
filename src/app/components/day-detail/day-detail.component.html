@@ -1,5 +1,5 @@
 <md-card *ngIf="date">
-  {{date | date: "dd/MM/yyyy"}}&nbsp;
+  <button md-button (click)="selectDate(date)">{{date | date: "dd/MM/yyyy"}}</button>
   <md-card-content>
     <table>
       <tr *ngFor="let appointment of appointments;"
@@ -17,13 +17,8 @@
           <ngb-timepicker [(ngModel)]="appointment.time"
                           [hourStep]="hourStep"
                           [minuteStep]="minuteStep"
-                          (ngModelChange)="timeChanged(appointment)"
+                          (ngModelChange)="update(appointment)"
           ></ngb-timepicker>
-
-          <!--
-           <hr>
-           <pre>Selected time: {{time | json}}</pre>
-           -->
         </td>
         <td>
           <button md-mini-fab color="warn" (click)="removeAppointment.emit(appointment.$key)">

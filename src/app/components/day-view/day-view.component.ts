@@ -10,6 +10,7 @@ import {AppointmentType} from "../../types/appointmentType.model";
       (addAppointment)="addAppointment.emit($event)"
       (removeAppointment)="removeAppointment.emit($event)"
       (updateAppointment)="updateAppointment.emit($event)"
+      (dateSelectedEvent)="dateSelected($event)"
       [appointmentTypes]="appointmentTypes"
       [date]="date"
       [appointments]="appointments">
@@ -25,5 +26,11 @@ export class DayViewComponent {
   @Output() public addAppointment = new EventEmitter<Date>();
   @Output() public updateAppointment = new EventEmitter<Appointment>();
   @Output() public removeAppointment = new EventEmitter<Appointment>();
+  @Output() public dateSelectedEvent = new EventEmitter<Date>();
+
+  dateSelected(date: Date){
+    console.log(date);
+    this.dateSelectedEvent.emit(date);
+  }
 
 }

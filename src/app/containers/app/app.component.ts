@@ -4,59 +4,17 @@ import * as moment from 'moment';
 import {Appointment} from '../../types/appointment.model';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {Observable} from 'rxjs/Observable';
-import Moment = moment.Moment;
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {firebaseConfig} from "../../app.module";
+import {AppointmentType} from "../../types/appointmentType.model";
+import Moment = moment.Moment;
 
 
 @Component({
   selector: 'app-root',
-  template: `
-    <topbar
-      (next)="onNext()"
-      (previous)="onPrevious()"
-      [isVisibleDay]="isVisibleDay$|async"
-      [isVisibleWeek]="isVisibleWeek$|async"
-      [isVisibleMonth]="isVisibleMonth$|async"
-      (setViewMode)="onSetViewMode($event)"
-      (searchChanged)="onSearchChanged($event)">
-    </topbar>
-    <div [ngSwitch]="viewMode$|async">
-      <day-view
-        *ngSwitchCase="VIEW_MODE.DAY"
-        [appointments]="filteredAppointments$|async"
-        [date]="currentDate$|async"
-        [appointmentTypes]="appointmentTypes$|async"
-        (removeAppointment)="onRemoveAppointment($event)"
-        (addAppointment)="onAddAppointment($event)"
-        (updateAppointment)="onUpdateAppointment($event)"
-      >
-      </day-view>
-      <week-view
-        *ngSwitchCase="VIEW_MODE.WEEK"
-        [appointments]="filteredAppointments$|async"
-        [year]="currentYear$|async"
-        [week]="currentWeek$|async"
-        (removeAppointment)="onRemoveAppointment($event)"
-        (addAppointment)="onAddAppointment($event)"
-        (updateAppointment)="onUpdateAppointment($event)"
-      >
-      </week-view>
-      <month-view
-        *ngSwitchCase="VIEW_MODE.MONTH"
-        [month]="currentMonth$|async"
-        [year]="currentYear$|async"
-        [appointments]="filteredAppointments$|async"
-        (removeAppointment)="onRemoveAppointment($event)"
-        (addAppointment)="onAddAppointment($event)"
-        (updateAppointment)="onUpdateAppointment($event)"
-      >
-      </month-view>
-    </div>
-  `,
+  templateUrl: 'app.component.html',
   styleUrls: ['./app.component.less']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
 
   VIEW_MODE = VIEW_MODE;
   isVisibleDay$ = this.db.object('/config/dayVisible');
@@ -65,6 +23,8 @@ export class AppComponent implements OnInit{
 
   appointmentTypes$ = this.db.list('/apointmentTypes');
   viewMode$ = new BehaviorSubject(VIEW_MODE.WEEK);
+  selectedDate: Date;
+
   // 0--------(+1)----(+1)----(-1)-------------...
   navigation$ = new BehaviorSubject<number>(0);
   searchTerm$ = new BehaviorSubject('');
@@ -121,13 +81,18 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     //TODO LOGGING
     var monthConfigRef = this.db.database.ref('/config/monthVisible');
-    monthConfigRef.on('child_changed', function(data) {
-      console.log("LOGGING: " +data);
+    monthConfigRef.on('child_changed', function (data) {
+      console.log("LOGGING: " + data);
     });
   }
 
   private filterByTerm(appointment: Appointment, term: string): boolean {
     return appointment.description.toLowerCase().indexOf(term.toLowerCase()) > -1;
+  }
+
+  selectDate(date: Date){
+    console.log(date);
+    this.selectedDate = date;
   }
 
   onSetViewMode(viewMode: string): void {
@@ -151,7 +116,8 @@ export class AppComponent implements OnInit{
   }
 
   onAddAppointment(date: Date): void {
-    this.appointments$.push(new Appointment(date.toDateString(), ''));
+    console.log(date.toDateString());
+    this.appointments$.push(new Appointment(date.toDateString(), '', 30));
   }
 
   onUpdateAppointment(appointment: Appointment): void {
@@ -159,5 +125,10 @@ export class AppComponent implements OnInit{
       description: appointment.description,
       date: appointment.date
     });
+  }
+
+  addAppointmentClicked(appointmentType: AppointmentType) {
+    console.log("Make appointment on date: " + this.selectedDate.toDateString());
+    this.appointments$.push(new Appointment(this.selectedDate.toDateString(), '', appointmentType.duration));
   }
 }

@@ -16,6 +16,7 @@ export class DayDetailComponent {
   @Output() public addAppointment = new EventEmitter<Date>();
   @Output() public updateAppointment = new EventEmitter<Appointment>();
   @Output() public removeAppointment = new EventEmitter<Appointment>();
+  @Output() public dateSelectedEvent = new EventEmitter<Date>();
 
   minuteStep = 15;
   hourStep = 1;
@@ -30,8 +31,9 @@ export class DayDetailComponent {
     this.updateAppointment.emit(Object.assign({$key}, appointment));
   }
 
-  timeChanged(appointment: Appointment) {
-    console.log(appointment);
-    console.error(appointment);
+  selectDate(date: Date){
+    console.log(date);
+    this.dateSelectedEvent.emit(date);
   }
+
 }

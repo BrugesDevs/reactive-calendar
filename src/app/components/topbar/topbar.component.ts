@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {VIEW_MODE} from '../../constants';
+import {AppointmentType} from "../../types/appointmentType.model";
 
 @Component({
   selector: 'topbar',
@@ -23,6 +24,10 @@ import {VIEW_MODE} from '../../constants';
           <input mdInput (keyup)="searchChanged.emit($event.target.value)"/>
           <md-icon class="material-icons">&#xE8B6;</md-icon>
         </md-input-container>
+        <appointment-type-list style="width: 500px;"
+                               (appointmentTypeClickedEvent)="appointmentTypeClicked($event)"
+                                [appointmentTypes]="appointmentTypes">
+        </appointment-type-list>
       </md-toolbar-row>
     </md-toolbar>
   `,
@@ -32,10 +37,16 @@ export class TopbarComponent {
   @Output() next = new EventEmitter();
   @Output() setViewMode = new EventEmitter<string>();
   @Output() searchChanged = new EventEmitter<string>();
+  @Output() addAppointmentClicked = new EventEmitter<AppointmentType>();
 
   @Input() isVisibleDay;
   @Input() isVisibleWeek;
   @Input() isVisibleMonth;
+  @Input() appointmentTypes: AppointmentType[];
 
   VIEW_MODE = VIEW_MODE;
+
+  appointmentTypeClicked(appointmentType: AppointmentType) {
+    this.addAppointmentClicked.emit(appointmentType);
+  }
 }
