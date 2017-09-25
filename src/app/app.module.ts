@@ -26,6 +26,7 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AppointmentTypeListComponent} from './components/appointment-type-list/appointment-type-list.component';
+import { DateOrderPipePipe } from './pipes/date-order-pipe.pipe';
 
 // replace this config here with the one from firebase
 export const firebaseConfig = {
@@ -45,7 +46,8 @@ export const firebaseConfig = {
     MonthViewComponent,
     DayDetailComponent,
     TopbarComponent,
-    AppointmentTypeListComponent
+    AppointmentTypeListComponent,
+    DateOrderPipePipe
   ],
   imports: [
     BrowserModule,

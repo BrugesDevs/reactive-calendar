@@ -117,7 +117,13 @@ export class AppComponent implements OnInit {
 
   onAddAppointment(date: Date): void {
     console.log(date.toDateString());
-    this.appointments$.push(new Appointment(date.toDateString(), '', 30));
+    //TODO DATE
+    let startDate = new Date(Date.now());
+    startDate.setHours(8,0);
+    let endDate = new Date(Date.now());
+    endDate.setHours(8,30);
+    this.appointments$.push(new Appointment(date.toDateString(), '', 30,startDate.toDateString(), endDate.toDateString()));
+    //END TODOs
   }
 
   onUpdateAppointment(appointment: Appointment): void {
@@ -129,6 +135,7 @@ export class AppComponent implements OnInit {
 
   addAppointmentClicked(appointmentType: AppointmentType) {
     console.log("Make appointment on date: " + this.selectedDate.toDateString());
-    this.appointments$.push(new Appointment(this.selectedDate.toDateString(), '', appointmentType.duration));
+    this.appointments$.push(new Appointment(this.selectedDate.toDateString(),
+      '', appointmentType.duration, this.selectedDate.toDateString(), this.selectedDate.toDateString()));
   }
 }

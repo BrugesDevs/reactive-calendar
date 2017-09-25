@@ -33,4 +33,8 @@ export class DayViewComponent {
     this.dateSelectedEvent.emit(date);
   }
 
+  lastAppointmentOfDay(){
+    return this.appointments[this.appointments.length-1];
+  }
+
 }

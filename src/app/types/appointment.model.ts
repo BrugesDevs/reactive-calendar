@@ -1,8 +1,15 @@
 export class Appointment {
     public $key: string;
-    public time = {hour: 13, minute: 30}; //TODO TIME
-    public duration = 30;//TODO DURATION
 
-  constructor(public date: Date | string, public description: string, duration: number) {
+  constructor(public date: Date | string,
+              public description: string,
+              private duration: number,
+              private startTime: Date | string,
+              private endTime: Date | string) {
+      let result = new Date();
+      result.setHours(8,30);
+      this.duration = 30;
+      this.startTime = new Date(Date.now());
+      this.endTime = new Date(result);
     }
 }
