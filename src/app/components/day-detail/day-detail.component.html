@@ -1,5 +1,5 @@
 <md-card *ngIf="date">
-  <button md-button (click)="selectDate(date)">{{date | date: "dd/MM/yyyy"}}</button>
+  <button md-button (click)="selectDate(date)" [ngClass]="{'activeDay': date.getTime() == activeDay.getTime()}">{{date | date: "dd/MM/yyyy"}}</button>
   <md-card-content>
     <table>
       <tr *ngFor="let appointment of appointments | dateOrderPipe;"

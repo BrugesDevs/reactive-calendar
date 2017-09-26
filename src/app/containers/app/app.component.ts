@@ -25,15 +25,8 @@ export class AppComponent implements OnInit {
   viewMode$ = new BehaviorSubject(VIEW_MODE.WEEK);
   selectedDate: Date;
 
-  // 0--------(+1)----(+1)----(-1)-------------...
   navigation$ = new BehaviorSubject<number>(0);
   searchTerm$ = new BehaviorSubject('');
-
-  // -----MONTH---------------------YEAR------...
-  // -----MONTH-------------------------------...
-  // -----(d)---------------------------------...
-  // --------(+1)----(+1)----(-1)-------------...
-  // -----d---d-------d-------d-----d----------...
 
   private currentDateM$ = this.viewMode$.flatMap((viewMode: string) => {
     let dateM = moment();
@@ -55,6 +48,8 @@ export class AppComponent implements OnInit {
   currentYear$ = this.currentDateM$.map(dateM => dateM.year());
   currentMonth$ = this.currentDateM$.map(dateM => dateM.month());
   currentWeek$ = this.currentDateM$.map(dateM => dateM.week());
+
+  //APPOINTMENTS
   appointments$ = this.db.list('/appointments');
   filteredAppointments$ = Observable.combineLatest([this.viewMode$, this.currentDateM$, this.appointments$, this.searchTerm$],
     (viewMode: string, currentDateM: Moment, appointments: Array<Appointment>, searchTerm: string) => {
@@ -76,14 +71,10 @@ export class AppComponent implements OnInit {
     }).shareReplay();
 
   constructor(private db: AngularFireDatabase) {
+    this.selectedDate = new Date(Date.now());
   }
 
   ngOnInit(): void {
-    //TODO LOGGING
-    var monthConfigRef = this.db.database.ref('/config/monthVisible');
-    monthConfigRef.on('child_changed', function (data) {
-      console.log("LOGGING: " + data);
-    });
   }
 
   private filterByTerm(appointment: Appointment, term: string): boolean {
@@ -91,7 +82,6 @@ export class AppComponent implements OnInit {
   }
 
   selectDate(date: Date){
-    console.log(date);
     this.selectedDate = date;
   }
 
@@ -116,14 +106,13 @@ export class AppComponent implements OnInit {
   }
 
   onAddAppointment(date: Date): void {
-    console.log(date.toDateString());
     //TODO DATE
     let startDate = new Date(Date.now());
     startDate.setHours(8,0);
     let endDate = new Date(Date.now());
     endDate.setHours(8,30);
     this.appointments$.push(new Appointment(date.toDateString(), '', 30,startDate.toDateString(), endDate.toDateString()));
-    //END TODOs
+    //END TODO
   }
 
   onUpdateAppointment(appointment: Appointment): void {

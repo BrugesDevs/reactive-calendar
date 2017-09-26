@@ -29,7 +29,6 @@ export class DayViewComponent {
   @Output() public dateSelectedEvent = new EventEmitter<Date>();
 
   dateSelected(date: Date){
-    console.log(date);
     this.dateSelectedEvent.emit(date);
   }
 

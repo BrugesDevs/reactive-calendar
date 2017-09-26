@@ -26,6 +26,7 @@
     [appointments]="filteredAppointments$|async"
     [year]="currentYear$|async"
     [week]="currentWeek$|async"
+    [activeDay]="selectedDate"
     (dateSelectedEvent)="selectDate($event)"
     (removeAppointment)="onRemoveAppointment($event)"
     (addAppointment)="onAddAppointment($event)"

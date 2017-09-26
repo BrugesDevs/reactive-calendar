@@ -6,10 +6,11 @@ import {AppointmentType} from "../../types/appointmentType.model";
 @Component({
   selector: 'day-detail',
   templateUrl: 'day-detail.component.html',
-  styles: ['.appointmentClass { padding-bottom: 10px;}']
+  styles: ['.appointmentClass { padding-bottom: 10px;} .activeDay { background-color: aqua;}']
 })
 export class DayDetailComponent {
   @Input() date: Date;
+  @Input() activeDay: Date;
   @Input() appointments: Array<Appointment>;
   @Input() appointmentTypes: Array<AppointmentType>;
 
@@ -23,7 +24,12 @@ export class DayDetailComponent {
 
   editMode = false;
 
+  constructor(){
+    this.activeDay = new Date(Date.now());
+  }
+
   add(): void {
+    console.log(this.date + " == " + this.activeDay + " => " + (this.date.getTime() == this.activeDay.getTime()));
     this.addAppointment.emit(moment(this.date).toDate());
   }
 

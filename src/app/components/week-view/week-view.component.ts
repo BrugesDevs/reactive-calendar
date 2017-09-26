@@ -16,6 +16,7 @@ import {AppointmentType} from "../../types/appointmentType.model";
             (removeAppointment)="removeAppointment.emit($event)"
             (updateAppointment)="updateAppointment.emit($event)"
             (dateSelectedEvent)="selectDate($event)"
+            [activeDay]="activeDay"
             [date]="day?.date"
             [appointments]="day?.appointments">
           </day-detail>
@@ -28,6 +29,7 @@ import {AppointmentType} from "../../types/appointmentType.model";
 export class WeekViewComponent implements OnChanges {
   @Input() week: number;
   @Input() year: number;
+  @Input() activeDay: number;
   @Input() appointments: Array<Appointment>;
   @Input() appointmentTypes: Array<AppointmentType>;
 
@@ -45,7 +47,6 @@ export class WeekViewComponent implements OnChanges {
   }
 
   selectDate(date: Date){
-    console.log(date);
     this.dateSelectedEvent.emit(date);
   }
 
