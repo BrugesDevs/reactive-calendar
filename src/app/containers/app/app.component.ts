@@ -108,18 +108,28 @@ export class AppComponent implements OnInit {
   onAddAppointment(date: Date): void {
     this.appointments$.first().subscribe(appointments => {
       console.log(appointments.length);
-      let a = appointments.filter((appointment) => {
+
+      let a = appointments.length > 0 ? appointments.filter((appointment) => {
+        console.log(appointment.startTime + " ==== " + date);
         return new Date(appointment.startTime).toISOString() === new Date(date).toISOString();
       }).sort((a, b) => {
         return a.endTime < b.endTime ? -1 : 1;
-      });
+      }): null;
 
       console.log("-----------");
-      a.forEach(a => console.log(a));
+      if(a!= null){
+        a.forEach(a => console.log(a));
+      }
 
-      let hour: Date = a.size > 0 ? new Date(a[0].endTime) : new Date(Date.now());
+      let hour: Date = a != null && a.length > 0 ? new Date(a[0].endTime) : new Date(Date.now());
       this.appointments$.push(new Appointment('', hour, new Date(hour.getTime() + 30*60000)));
     });
+  }
+
+
+
+  getLastAppointment(date: Date): Appointment {
+  return null;
   }
 
   onUpdateAppointment(appointment: Appointment): void {
@@ -132,7 +142,7 @@ export class AppComponent implements OnInit {
 
   addAppointmentClicked(appointmentType: AppointmentType) {
     console.log("Make appointment on date: " + this.selectedDate.toDateString());
-    this.appointments$.push(new Appointment('', this.selectedDate, this.selectedDate));
+    //this.appointments$.push(new Appointment('', this.selectedDate, this.selectedDate));
   }
 
 

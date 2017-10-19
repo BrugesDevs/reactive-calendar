@@ -29,8 +29,8 @@ export class DayDetailComponent {
   }
 
   add(): void {
-    console.log(this.date + " == " + this.activeDay + " => " + (this.date.getTime() == this.activeDay.getTime()));//TODO LOGGING
-    this.addAppointment.emit(moment(this.date).toDate());
+    console.log(this.date + " == " + this.activeDay + " => " + (this.date.getDate() == this.activeDay.getDate()));//TODO LOGGING
+    this.addAppointment.emit(this.date);
   }
 
   update(appointment: Appointment, $key: string) {
