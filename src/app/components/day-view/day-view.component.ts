@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Appointment} from '../../types/appointment.model';
-import {AppointmentType} from "../../types/appointmentType.model";
+import {Appointment} from '../../model/appointment.model';
+import {AppointmentType} from "../../model/appointmentType.model";
 
 @Component({
   selector: 'day-view',
@@ -28,12 +28,15 @@ export class DayViewComponent {
   @Output() public removeAppointment = new EventEmitter<Appointment>();
   @Output() public dateSelectedEvent = new EventEmitter<Date>();
 
-  dateSelected(date: Date){
+  dateSelected(date: Date) {
     this.dateSelectedEvent.emit(date);
   }
 
-  lastAppointmentOfDay(){
-    return this.appointments[this.appointments.length-1];
+  getLastAppointmentOfDay(): Appointment {
+    return this.appointments.sort((a, b) => {
+      return a.endTime > b.endTime ? +1 : -1;
+    })[this.appointments.length-1];
   }
+
 
 }

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AppointmentType} from "../../types/appointmentType.model";
+import {AppointmentType} from "../../model/appointmentType.model";
 
 @Component({
   selector: 'appointment-type-list',

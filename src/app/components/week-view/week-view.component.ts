@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
-import {Appointment} from '../../types/appointment.model';
 import * as moment from 'moment';
-import {DayWithAppointments} from '../../types/day-with-appointments.model';
-import {AppointmentType} from "../../types/appointmentType.model";
+import {Appointment} from "../../model/appointment.model";
+import {AppointmentType} from "../../model/appointmentType.model";
+import {DayWithAppointments} from "../../model/day-with-appointments.model";
 
 @Component({
   selector: 'week-view',
@@ -57,7 +57,7 @@ export class WeekViewComponent implements OnChanges {
         return {
           date: i > 0 ? moment(sundayM.toDate()).add(i, 'days').toDate() : sundayM.toDate(),
           appointments: appointments.filter((appointment: Appointment) => {
-            return moment(sundayM.toDate()).weekday(i).date() === moment(appointment.date).date();
+            return moment(sundayM.toDate()).weekday(i).date() === moment(appointment.startTime).date();
           })
         }
       });

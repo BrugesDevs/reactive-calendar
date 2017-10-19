@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import * as moment from 'moment';
 import * as _ from 'lodash';
-import { Appointment } from '../../types/appointment.model';
-import { DayWithAppointments } from '../../types/day-with-appointments.model';
+import { Appointment } from '../../model/appointment.model';
+import { DayWithAppointments } from '../../model/day-with-appointments.model';
 
 @Component({
     selector: 'month-view',
@@ -53,7 +53,7 @@ export class MonthViewComponent implements OnChanges {
                     week[dateM.weekday()] = {
                         date: dateM.toDate(),
                         appointments: appointments.filter((appointment: Appointment) => {
-                            return dateM.date() === moment(appointment.date).date();
+                            return dateM.date() === moment(appointment.startTime).date();
                         })
                     };
                 });

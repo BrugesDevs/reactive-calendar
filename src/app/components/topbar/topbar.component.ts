@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {VIEW_MODE} from '../../constants';
-import {AppointmentType} from "../../types/appointmentType.model";
+import {AppointmentType} from "../../model/appointmentType.model";
 
 @Component({
   selector: 'topbar',

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Appointment} from '../../types/appointment.model';
+import {Appointment} from '../../model/appointment.model';
 import * as moment from 'moment';
-import {AppointmentType} from "../../types/appointmentType.model";
+import {AppointmentType} from "../../model/appointmentType.model";
 
 @Component({
   selector: 'day-detail',
@@ -29,11 +29,12 @@ export class DayDetailComponent {
   }
 
   add(): void {
-    console.log(this.date + " == " + this.activeDay + " => " + (this.date.getTime() == this.activeDay.getTime()));
+    console.log(this.date + " == " + this.activeDay + " => " + (this.date.getTime() == this.activeDay.getTime()));//TODO LOGGING
     this.addAppointment.emit(moment(this.date).toDate());
   }
 
   update(appointment: Appointment, $key: string) {
+    console.log("update called");
     this.updateAppointment.emit(Object.assign({$key}, appointment));
   }
 
