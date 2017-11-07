@@ -32,18 +32,8 @@ export class DayDetailComponent {
     this.addAppointment.emit(this.date);
   }
 
-  update(appointment: Appointment, $key: string) {
-    console.log("update called");
-    this.updateAppointment.emit(Object.assign({$key}, appointment));
-  }
-
   selectDate(date: Date) {
     console.log(date);
     this.dateSelectedEvent.emit(date);
-  }
-
-  bookAppointment(appointment: Appointment, $key: string) {
-    appointment.reserved = !appointment.reserved;
-    this.updateAppointment.emit(Object.assign({$key}, appointment));
   }
 }

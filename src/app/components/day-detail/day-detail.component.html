@@ -8,8 +8,10 @@
           [mdTooltipPosition]="'before'"
           mdTooltip="{{appointment.description}}">
         <appointment
-         [appointment]="appointment"
-        />
+          (removeAppointment)="removeAppointment.emit($event)"
+          (updateAppointment)="updateAppointment.emit($event)"
+          [appointment]="appointment"
+        ></appointment>
       </tr>
     </table>
   </md-card-content>
