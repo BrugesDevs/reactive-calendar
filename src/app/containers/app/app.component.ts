@@ -129,7 +129,7 @@ export class AppComponent implements OnInit {
   getLastAppointment(appointments: Appointment[], date: Date): Appointment[] {
     return appointments.filter((appointment) => {
       console.log(appointment.startTime + " ==== " + date);
-      return new Date(appointment.startTime).toISOString() === new Date(date).toISOString();
+      return new Date(appointment.startTime).getTime() === new Date(date).getTime();
     }).sort((a, b) => {
       return a.endTime < b.endTime ? -1 : 1;
     });

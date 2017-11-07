@@ -24,12 +24,11 @@ export class DayDetailComponent {
 
   editMode = false;
 
-  constructor(){
+  constructor() {
     this.activeDay = new Date(Date.now());
   }
 
   add(): void {
-    console.log(this.date + " == " + this.activeDay + " => " + (this.date.getDate() == this.activeDay.getDate()));//TODO LOGGING
     this.addAppointment.emit(this.date);
   }
 
@@ -38,9 +37,13 @@ export class DayDetailComponent {
     this.updateAppointment.emit(Object.assign({$key}, appointment));
   }
 
-  selectDate(date: Date){
+  selectDate(date: Date) {
     console.log(date);
     this.dateSelectedEvent.emit(date);
   }
 
+  bookAppointment(appointment: Appointment, $key: string) {
+    appointment.reserved = !appointment.reserved;
+    this.updateAppointment.emit(Object.assign({$key}, appointment));
+  }
 }
