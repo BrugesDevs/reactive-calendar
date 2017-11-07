@@ -19,6 +19,7 @@
                           [minuteStep]="minuteStep"
                           (ngModelChange)="update(appointment)"
           ></ngb-timepicker>
+          <button md-button (click)="reserveAppointment()">{{appointment.reserved? 'reserved': 'book'}}</button>
         </td>
         <td>
           <button md-mini-fab color="warn" (click)="removeAppointment.emit(appointment.$key)">

@@ -105,45 +105,42 @@ export class AppComponent implements OnInit {
     this.appointments$.remove(id);
   }
 
-  onAddAppointment(date: Date): void {
-    this.appointments$.first().subscribe(appointments => {
+  onAddAppointment(appointmentType: AppointmentType, date?: Date): void {
+    if (!date) {
+      date = this.selectedDate;
+    }
+    this.appointments$.first().subscribe((appointments: Appointment[]) => {
       console.log(appointments.length);
-
-      let a = appointments.length > 0 ? appointments.filter((appointment) => {
-        console.log(appointment.startTime + " ==== " + date);
-        return new Date(appointment.startTime).toISOString() === new Date(date).toISOString();
-      }).sort((a, b) => {
-        return a.endTime < b.endTime ? -1 : 1;
-      }): null;
-
-      console.log("-----------");
-      if(a!= null){
-        a.forEach(a => console.log(a));
-      }
-
-      let hour: Date = a != null && a.length > 0 ? new Date(a[0].endTime) : new Date(Date.now());
-      this.appointments$.push(new Appointment('', hour, new Date(hour.getTime() + 30*60000)));
-    });
+      let filteredAppointments = appointments.length === 0 ? null : this.getLastAppointment(appointments, date);
+        console.log("-----------");
+        let hour: Date;
+        if (filteredAppointments != null && filteredAppointments.length > 0) {
+          hour = new Date(filteredAppointments[0].endTime);
+          filteredAppointments.forEach(appointments => console.log(appointments));
+        } else {
+          hour = new Date(Date.now());
+        }
+        this.appointments$.push(new Appointment('', hour.toDateString()
+          , new Date(hour.getTime() + 30 * 60000).toDateString()
+          , false));
+      });
   }
 
-
-
-  getLastAppointment(date: Date): Appointment {
-  return null;
+  getLastAppointment(appointments: Appointment[], date: Date): Appointment[] {
+    return appointments.filter((appointment) => {
+      console.log(appointment.startTime + " ==== " + date);
+      return new Date(appointment.startTime).toISOString() === new Date(date).toISOString();
+    }).sort((a, b) => {
+      return a.endTime < b.endTime ? -1 : 1;
+    });
   }
 
   onUpdateAppointment(appointment: Appointment): void {
     this.db.object('appointments/' + appointment.$key).set({
       description: appointment.description,
       startTime: appointment.startTime,
-      endTime: appointment.endTime
+      endTime: appointment.endTime,
+      reserved: appointment.reserved
     });
   }
-
-  addAppointmentClicked(appointmentType: AppointmentType) {
-    console.log("Make appointment on date: " + this.selectedDate.toDateString());
-    //this.appointments$.push(new Appointment('', this.selectedDate, this.selectedDate));
-  }
-
-
 }

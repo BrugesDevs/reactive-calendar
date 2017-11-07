@@ -7,7 +7,7 @@
   [appointmentTypes]="appointmentTypes$"
   (setViewMode)="onSetViewMode($event)"
   (searchChanged)="onSearchChanged($event)"
-  (addAppointmentClicked)="addAppointmentClicked($event)">
+  (addAppointmentClicked)="onAddAppointment($event)">
 </topbar>
 <div [ngSwitch]="viewMode$|async">
   <day-view
