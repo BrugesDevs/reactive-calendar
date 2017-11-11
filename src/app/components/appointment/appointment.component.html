@@ -2,19 +2,19 @@
   <td (click)="editMode = true"
       [ngStyle]="{'border-spacing': '10px'}">
     <md-select placeholder="Afspraak type" class="example-full-width">
-      <md-option *ngFor="let appointmentType of appointmentTypes"
+      <md-option *ngFor="let appointmentType of appointmentTypes | async"
                  [value]="appointmentType.name"
                  (onSelectionChange)="update(appointment, appointment.$key)">
         {{ appointmentType.name }}
       </md-option>
     </md-select>
-    <ngb-timepicker [(ngModel)]="appointment.startTime"
+    <ngb-timepicker [ngModel]="hour"
                     [hourStep]="hourStep"
                     [minuteStep]="minuteStep"
                     (ngModelChange)="update(appointment)"
     ></ngb-timepicker>
-    <button md-button (click)="bookAppointment(appointment, appointment.$key)">{{appointment.reserved? 'unbook':
-      'book'}}
+    <button md-button class="button-block" style="background: royalblue" (click)="bookAppointment(appointment, appointment.$key)">
+      {{appointment.reserved? 'unbook': 'book'}}
     </button>
   </td>
   <td>

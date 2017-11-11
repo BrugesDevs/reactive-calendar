@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Appointment} from '../../model/appointment.model';
-import * as moment from 'moment';
 import {AppointmentType} from "../../model/appointmentType.model";
 
 @Component({
@@ -12,7 +11,7 @@ export class DayDetailComponent {
   @Input() date: Date;
   @Input() activeDay: Date;
   @Input() appointments: Array<Appointment>;
-  @Input() appointmentTypes: Array<AppointmentType>;
+  @Input() appointmentTypes: AppointmentType[];
 
   @Output() public addAppointment = new EventEmitter<Date>();
   @Output() public updateAppointment = new EventEmitter<Appointment>();

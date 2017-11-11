@@ -32,11 +32,4 @@ export class DayViewComponent {
     this.dateSelectedEvent.emit(date);
   }
 
-  getLastAppointmentOfDay(): Appointment {
-    return this.appointments.sort((a, b) => {
-      return a.endTime > b.endTime ? +1 : -1;
-    })[this.appointments.length-1];
-  }
-
-
 }

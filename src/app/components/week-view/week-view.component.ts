@@ -16,6 +16,7 @@ import {DayWithAppointments} from "../../model/day-with-appointments.model";
             (removeAppointment)="removeAppointment.emit($event)"
             (updateAppointment)="updateAppointment.emit($event)"
             (dateSelectedEvent)="selectDate($event)"
+            [appointmentTypes]="appointmentTypes$"
             [activeDay]="activeDay"
             [date]="day?.date"
             [appointments]="day?.appointments">
@@ -31,7 +32,7 @@ export class WeekViewComponent implements OnChanges {
   @Input() year: number;
   @Input() activeDay: number;
   @Input() appointments: Array<Appointment>;
-  @Input() appointmentTypes: Array<AppointmentType>;
+  @Input() appointmentTypes: AppointmentType[];
 
   @Output() public addAppointment = new EventEmitter<Appointment>();
   @Output() public updateAppointment = new EventEmitter<Appointment>();
