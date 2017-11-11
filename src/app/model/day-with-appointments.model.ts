@@ -1,4 +1,4 @@
-import { Appointment } from './appointment.type';
+import { Appointment } from './appointment.model';
 export type DayWithAppointments = {
     date: Date;
     appointments: Array<Appointment>;
