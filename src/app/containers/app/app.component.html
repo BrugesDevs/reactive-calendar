@@ -14,9 +14,9 @@
     *ngSwitchCase="VIEW_MODE.DAY"
     [appointments]="filteredAppointments$|async"
     [date]="currentDate$|async"
-    [appointmentTypes]="appointmentTypes$|async"
+    [appointmentTypes]="appointmentTypes$"
     (removeAppointment)="onRemoveAppointment($event)"
-    (addAppointment)="onAddAppointment($event)"
+    (addAppointment)="onAddAppointmentOnDate($event)"
     (updateAppointment)="onUpdateAppointment($event)"
     (dateSelectedEvent)="selectDate($event)"
   >
@@ -24,12 +24,13 @@
   <week-view
     *ngSwitchCase="VIEW_MODE.WEEK"
     [appointments]="filteredAppointments$|async"
+    [appointmentTypes]="appointmentTypes$"
     [year]="currentYear$|async"
     [week]="currentWeek$|async"
     [activeDay]="selectedDate"
     (dateSelectedEvent)="selectDate($event)"
     (removeAppointment)="onRemoveAppointment($event)"
-    (addAppointment)="onAddAppointment($event)"
+    (addAppointment)="onAddAppointmentOnDate($event)"
     (updateAppointment)="onUpdateAppointment($event)"
   >
   </week-view>
@@ -37,9 +38,10 @@
     *ngSwitchCase="VIEW_MODE.MONTH"
     [month]="currentMonth$|async"
     [year]="currentYear$|async"
+    [appointmentTypes]="appointmentTypes$"
     [appointments]="filteredAppointments$|async"
     (removeAppointment)="onRemoveAppointment($event)"
-    (addAppointment)="onAddAppointment($event)"
+    (addAppointment)="onAddAppointmentOnDate($event)"
     (updateAppointment)="onUpdateAppointment($event)"
   >
   </month-view>

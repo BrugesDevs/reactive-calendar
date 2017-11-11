@@ -105,34 +105,36 @@ export class AppComponent implements OnInit {
     this.appointments$.remove(id);
   }
 
-  onAddAppointment(appointmentType: AppointmentType, date?: Date): void {
+  public onAddAppointmentOnDate(date: Date): void {
+    this.onAddAppointment(null, date);
+  }
+
+  private onAddAppointment(appointmentType: AppointmentType, date?: Date): void {
     if (!date) {
       date = this.selectedDate;
     }
     this.appointments$.first().subscribe((appointments: Appointment[]) => {
-      console.log(appointments.length);
-      let filteredAppointments = appointments.length === 0 ? null : this.getLastAppointment(appointments, date);
-        console.log("-----------");
-        let hour: Date;
-        if (filteredAppointments != null && filteredAppointments.length > 0) {
-          hour = new Date(filteredAppointments[0].endTime);
-          filteredAppointments.forEach(appointments => console.log(appointments));
-        } else {
-          hour = new Date(Date.now());
-        }
-        this.appointments$.push(new Appointment('', hour.toDateString()
-          , new Date(hour.getTime() + 30 * 60000).toDateString()
-          , false));
+      let lastAppointment = this.getLastAppointment(appointments, date);
+      let duration = appointmentType && appointmentType.duration ? appointmentType.duration: 30;
+      let hour = lastAppointment ? new Date(lastAppointment.endTime)
+        : this.sameDay(new Date(Date.now()), date) ? new Date(Date.now()): date;
+      this.appointments$.push(new Appointment('', hour.toISOString()
+          , new Date(hour.getTime() + duration * 60000).toISOString()
+        , false));
       });
   }
 
-  getLastAppointment(appointments: Appointment[], date: Date): Appointment[] {
-    return appointments.filter((appointment) => {
-      console.log(appointment.startTime + " ==== " + date);
-      return new Date(appointment.startTime).getTime() === new Date(date).getTime();
-    }).sort((a, b) => {
-      return a.endTime < b.endTime ? -1 : 1;
-    });
+  getLastAppointment(appointments: Appointment[], date: Date): Appointment {
+    let orderedFilteredAppointments = appointments
+      .filter((appointment) => this.sameDay(new Date(appointment.startTime), date))
+      .sort((a, b) =>  a.endTime > b.endTime ? -1 : 1);
+    return orderedFilteredAppointments.length > 0? orderedFilteredAppointments[0]: null;
+  }
+
+  sameDay(dateOne: Date, dateTwo: Date): boolean{
+    return dateOne.getFullYear() === dateTwo.getFullYear()
+    && dateOne.getMonth() === dateTwo.getMonth()
+    && dateOne.getDay() === dateTwo.getDay();
   }
 
   onUpdateAppointment(appointment: Appointment): void {
