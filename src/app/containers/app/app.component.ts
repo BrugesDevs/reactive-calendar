@@ -120,7 +120,7 @@ export class AppComponent implements OnInit {
         : this.sameDay(new Date(Date.now()), date) ? new Date(Date.now()): date;
       this.appointments$.push(new Appointment('', hour.toISOString()
           , new Date(hour.getTime() + duration * 60000).toISOString()
-        , false));
+        , false, ''));
       });
   }
 

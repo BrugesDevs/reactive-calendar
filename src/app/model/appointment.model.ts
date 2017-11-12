@@ -6,6 +6,7 @@ export class Appointment {
   constructor(public description: string,
               public startTime: string,
               public endTime: string,
-              public reserved: boolean) {
+              public reserved: boolean,
+              public afspraakType: string) {
   }
 }
