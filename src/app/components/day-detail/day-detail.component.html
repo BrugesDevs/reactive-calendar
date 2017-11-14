@@ -2,8 +2,6 @@
   <button md-button (click)="selectDate(date)" [ngClass]="{'activeDay': date.getTime() == activeDay.getTime()}">{{date |
     date: "dd/MM/yyyy"}}
   </button>
-  <appointment-type-list
-    [appointmentTypes]="appointmentTypes"></appointment-type-list>
   <md-card-content>
     <table>
       <tr *ngFor="let appointment of appointments | dateOrderPipe;"

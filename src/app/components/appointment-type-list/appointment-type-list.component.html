@@ -1,5 +1,5 @@
 <md-grid-list cols="5" style="margin-left: 50px;">
-  <md-grid-tile *ngFor="let appointmentType of appointmentTypes| async">
+  <md-grid-tile *ngFor="let appointmentType of appointmentTypes">
     <button md-button (click)="appointmentTypeClicked(appointmentType)" style="margin-left: 15px; padding: 5px;">
       {{appointmentType.name}}
     </button>

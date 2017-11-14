@@ -16,7 +16,7 @@ import {DayWithAppointments} from "../../model/day-with-appointments.model";
             (removeAppointment)="removeAppointment.emit($event)"
             (updateAppointment)="updateAppointment.emit($event)"
             (dateSelectedEvent)="selectDate($event)"
-            [appointmentTypes]="appointmentTypes$"
+            [appointmentTypes]="appointmentTypes"
             [activeDay]="activeDay"
             [date]="day?.date"
             [appointments]="day?.appointments">

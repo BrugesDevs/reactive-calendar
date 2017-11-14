@@ -1,5 +1,3 @@
-import {AppointmentType} from "./appointmentType.model";
-
 export class Appointment {
   public $key: string;
 
@@ -7,6 +5,6 @@ export class Appointment {
               public startTime: string,
               public endTime: string,
               public reserved: boolean,
-              public afspraakType: string) {
+              public appointmentType: string) {
   }
 }

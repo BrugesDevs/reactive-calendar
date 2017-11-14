@@ -18,9 +18,6 @@ export class AppointmentComponent implements OnInit, OnChanges {
   hour = {hour: 0, minute: 0};
 
   ngOnInit(): void {
-    this.appointmentTypes = [new AppointmentType('appointment', 30),
-      new AppointmentType('consulation', 45),
-      new AppointmentType('pauze', 15)];
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -30,7 +27,8 @@ export class AppointmentComponent implements OnInit, OnChanges {
 
   update(appointment: Appointment, $key: string) {
     console.log("update called for element: " + $key + " appointment.$key: " + appointment.$key);
-    this.updateAppointment.emit(Object.assign({$key}, appointment));//TODO WHY IS $KEY UNDEFINED and appointment.$key not?
+    //this.updateAppointment.emit(Object.assign({$key}, appointment));//TODO WHY IS $KEY UNDEFINED and appointment.$key not?
+    this.updateAppointment.emit(appointment);
   }
 
   bookAppointment(appointment: Appointment, $key: string) {
@@ -42,7 +40,7 @@ export class AppointmentComponent implements OnInit, OnChanges {
     }
   }
 
-  setAfspraakType($event){
-    console.log($event);
+  setType() {
+    console.log(this.appointment);
   }
 }

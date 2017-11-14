@@ -1,21 +1,13 @@
 <div>
   <td (click)="editMode = true"
       [ngStyle]="{'border-spacing': '10px'}">
-    <md-select placeholder="Afspraak type" class="example-full-width">
+    <md-select placeholder="Afspraak type" class="example-full-width" ngModel
+               (ngModelChange)="setType()">
       <md-option *ngFor="let appointmentType of appointmentTypes"
-                 [value]="appointment.afspraakType"
-      (onSelectionChange)="appointment.afspraakType">
+                 [value]="appointmentType.name">
         {{ appointmentType.name }}
       </md-option>
     </md-select>
-    <mat-form-field>
-      <mat-select [(value)]="appointment.afspraakType">
-        <mat-option>None</mat-option>
-        <mat-option value="option1">Option 1</mat-option>
-        <mat-option value="option2">Option 2</mat-option>
-        <mat-option value="option3">Option 3</mat-option>
-      </mat-select>
-    </mat-form-field>
     <ngb-timepicker [ngModel]="hour"
                     [hourStep]="hourStep"
                     [minuteStep]="minuteStep"
